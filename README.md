@@ -2,6 +2,8 @@
 
 **Projektarbeit im Modul (4) Machine Learning (ADS-04) · Applied Data Science · Digital Business University of Applied Sciences**
 
+Repository: https://github.com/mohammed-hmed/ads04-profitvorhersage-superstore
+
 ## Gegenstand des Projekts
 
 Der im Kurs bereitgestellte Global-Superstore-Datensatz (Tableau) umfasst 51.290 Bestellpositionen eines fiktiven Einzelhändlers aus sieben Weltmärkten (2011–2014) inklusive Retouren. 24,46 % der Positionen sind Verlustgeschäfte. Ziel ist die **Vorhersage des Profits je Bestellposition** (Regression).
