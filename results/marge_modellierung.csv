@@ -1,0 +1,3 @@
+Modell (Zielgröße Marge),R2,RMSE,MAE
+Lineare Regression,0.72,91.34,36.27
+Random Forest,0.7472,86.79,34.11

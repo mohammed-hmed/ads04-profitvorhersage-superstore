@@ -1,0 +1,5 @@
+Verfahren,Precision,Recall,F1
+"Regression, linear (Notebook 06)",0.739,0.697,0.717
+"Regression, Random Forest",0.914,0.784,0.844
+"Fachregel: Discount > 0,2",0.898,0.806,0.849
+Logistische Regression,0.894,0.805,0.848

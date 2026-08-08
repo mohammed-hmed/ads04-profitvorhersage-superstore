@@ -1,0 +1,8 @@
+Modell,Test_R2,Test_RMSE,Test_MAE
+LinearRegression,0.6631,100.2,41.04
+Ridge,0.6631,100.2,41.03
+Nur Sales+Discount,0.6602,100.63,40.21
+RandomForest,0.6538,101.58,35.81
+kNN,0.6367,104.05,39.94
+DecisionTree,0.6069,108.24,38.01
+Mittelwert-Baseline,-0.0,172.63,67.52

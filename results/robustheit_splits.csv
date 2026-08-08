@@ -1,0 +1,4 @@
+Split,LinearRegression,RandomForest
+zufällig je Zeile (Hauptanalyse),0.6631,0.6538
+gruppiert nach Order ID,0.6448,0.6844
+zeitlich 2011-2013 -> 2014,0.7192,0.7549

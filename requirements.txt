@@ -1,0 +1,8 @@
+pandas>=2.2
+numpy>=1.26
+scikit-learn>=1.5
+matplotlib>=3.8
+scipy>=1.13
+openpyxl>=3.1
+xlrd>=2.0   # optional: nur nötig, wenn die .xls-Datei gelesen werden soll
+jupyter
