@@ -1,79 +1,71 @@
 # Profit-Vorhersage im Global-Superstore-Datensatz
 
-**Projektarbeit im Modul (4) Machine Learning (ADS-04) · Applied Data Science · Digital Business University of Applied Sciences**
+Projektarbeit im Modul Machine Learning (ADS-04), Applied Data Science, Digital Business University of Applied Sciences.
 
-Repository: https://github.com/mohammed-hmed/ads04-profitvorhersage-superstore
+## Worum geht's
 
-## Gegenstand des Projekts
+Der Global-Superstore-Datensatz enthält 51.290 Bestellpositionen eines Einzelhändlers aus sieben Märkten, 2011 bis 2014. Knapp ein Viertel davon sind Verlustgeschäfte (24,46 %). Ich versuche vorherzusagen, wie viel Gewinn eine einzelne Position bringt.
 
-Der im Kurs bereitgestellte Global-Superstore-Datensatz (Tableau) umfasst 51.290 Bestellpositionen eines fiktiven Einzelhändlers aus sieben Weltmärkten (2011–2014) inklusive Retouren. 24,46 % der Positionen sind Verlustgeschäfte. Ziel ist die **Vorhersage des Profits je Bestellposition** (Regression).
+Drei Fragen:
 
-**Forschungsfragen**
+1. Wie genau geht das, und was bringt ein Modell gegenüber ganz simplen Vergleichswerten?
+2. Welche Datenaufbereitung und welcher Algorithmus funktionieren am besten?
+3. Woran liegt es, wenn eine Position Verlust macht?
 
-* **RQ1:** Wie genau lässt sich der Profit vorhersagen, und wie viel leistet ein Modell gegenüber einfachen Vergleichsmaßstäben?
-* **RQ2:** Welche Kombination aus Transformationspipeline und Algorithmus generalisiert am besten, und wie belastbar ist dieser Vergleich?
-* **RQ3:** Welche Merkmale treiben Verlustgeschäfte, und welche Handlungsempfehlungen folgen daraus?
+## Was rausgekommen ist
 
-## Zentrale Ergebnisse
+**Die Aufbereitung bringt mehr als der Algorithmus.** Sobald das Modell das Produkt aus Umsatz und Rabatt als eigene Spalte bekommt, springt die lineare Regression von R² 0,34 auf 0,71. Mit Polynomgrad 3 sogar auf 0,75.
 
-* **Merkmalskonstruktion schlägt Algorithmenwahl.** Interaktionsterme (`Sales × Discount`, Pipeline C) heben die linearen Modelle von R² = 0,339 auf 0,714. Polynomgrad drei verbessert das nochmals signifikant auf 0,748 (gepaarter t-Test, p = 0,006) — der einzige statistisch abgesicherte Modellunterschied der Arbeit.
-* **Der Unterschied zwischen den Algorithmen ist nicht belastbar.** Lineares Interaktionsmodell 0,663 gegenüber Random Forest 0,653 auf den Testdaten; p = 0,544 in der Cross-Validation, Bootstrap-Konfidenzintervall für die R²-Differenz [−0,032; +0,068]. Unter gruppiertem und zeitlichem Split kehrt sich die Rangfolge um. Belastbar ist nur der Vorsprung des Random Forest beim MAE (Differenz 5,28 USD, KI [+4,31; +6,00]).
-* **Der Profit folgt einer Rechenidentität.** `Profit = Sales · (m − d)/(1 − d)`; die Rohmarge *m* ist mit einer Standardabweichung von 0,0040 innerhalb eines Produkts (gegenüber 0,1490 insgesamt) praktisch eine Produktkonstante. Eine Formel **ohne jeden gefitteten Parameter** erreicht R² = 0,736, mit produktspezifischen Margen 0,974 — mehr als jedes trainierte Modell.
-* **Rabatt ist der dominierende Verlusttreiber.** Umschlagpunkt zwischen 25 und 27 Prozent Rabatt (bei 25 %: +9,62 USD; bei 27 %: −2,75 USD). Die Permutation Importance weist `Discount` (1,447) und `Sales` (1,353) mit weitem Abstand die höchsten Werte zu.
-* **Gegenbefund zum Sortiment:** Die Unterkategorie *tables* ist im Mittel defizitär (−80,92 USD), ohne Rabatt aber der **profitabelste** Bereich überhaupt (+292,86 USD). Der Verlust folgt aus der Rabattvergabe, nicht aus der Kalkulation.
-* **Datenqualitätsbefund:** `Profit` ist nicht um Retouren korrigiert — retournierte Positionen weisen im Mittel höheren Profit aus (42,07 gegenüber 27,82 USD).
+**Zwischen den Algorithmen ist dagegen kaum ein Unterschied.** Auf den Testdaten: lineares Modell 0,663, Random Forest 0,653. Sieht nach einem Vorsprung aus, ist aber keiner. Der gepaarte t-Test liefert p = 0,54, und je nach Split-Verfahren dreht sich die Reihenfolge um. Nur beim MAE ist der Random Forest wirklich besser (5,28 USD Unterschied).
 
-## Struktur des Repositories
+**Der Profit muss eigentlich gar nicht geschätzt werden.** Er folgt einer Rechenformel: `Profit = Sales · (Marge − Rabatt) / (1 − Rabatt)`. Die Marge ist pro Produkt fast konstant. Die Formel allein, ohne ein einziges trainiertes Modell, kommt auf R² 0,736; mit produktspezifischen Margen auf 0,974. Damit schlägt sie jedes Modell in diesem Projekt.
+
+**Rabatt ist der Haupttreiber für Verluste.** Der Kipppunkt liegt zwischen 25 und 27 Prozent. Bei 25 % Rabatt bleiben im Schnitt noch +9,62 USD übrig, bei 27 % sind es −2,75 USD.
+
+**Ein Gegenbefund:** Die Unterkategorie *Tables* macht im Mittel Verlust (−80,92 USD). Ohne Rabatt ist sie aber der profitabelste Bereich überhaupt (+292,86 USD). Das Problem ist also die Rabattvergabe, nicht die Kalkulation.
+
+**Und ein Datenproblem:** Die Spalte `Profit` ist nicht um Retouren bereinigt. Zurückgeschickte Positionen zeigen sogar einen höheren Profit als der Rest (42,07 gegenüber 27,82 USD). Steht im Bericht als Limitation drin.
+
+## Was wo liegt
 
 ```
-├── README.md                    <- Ausgangspunkt der Dokumentation (diese Datei)
-├── CODE_DOKUMENTATION.md        <- der Code Schritt für Schritt erklärt
-├── requirements.txt             <- exakte Paketversionen
-├── .gitignore
-├── bericht/                     <- Bericht (docx + pdf), inkl. Eigenständigkeitserklärung
-├── data/
-│   ├── raw/global-superstore.xls    <- Rohdaten, unverändert (3 Blätter)
-│   ├── raw/global-superstore.xlsx   <- formatgleiche Kopie (falls xlrd nicht installiert ist)
-│   └── processed/*.csv.gz           <- aufbereitete Daten (von Notebook 01 als Pickle erzeugt,
-│                                       hier zusätzlich komprimiert als CSV abgelegt)
-├── notebooks/
-│   ├── ADS04_Gesamtanalyse.ipynb          <- Referenzfassung: die vollständige Analyse in EINEM
-│   │                                         durchgehenden Notebook, mit Erläuterungen und Befunden
-│   └── ADS04_Gesamtanalyse_nur_Code.ipynb <- inhaltsgleiche Fassung ohne Fließtext, nur Code
-│                                             (beide vollständig ausgeführt, Zähler 1…47)
-├── figures/                     <- Abbildungen (vom Notebook erzeugt)
-└── results/                     <- cv_vergleich.csv, tuned_params.json, test_scores.csv,
-                                    robustheit_splits.csv, overfitting_baumtiefe.csv,
-                                    marge_modellierung.csv, fehler_je_segment.csv,
-                                    warnsystem_vergleich.csv
+notebooks/   ADS04_Gesamtanalyse.ipynb           die ganze Analyse, mit Erklärungen
+             ADS04_Gesamtanalyse_nur_Code.ipynb  dasselbe, nur der Code
+data/raw/    Rohdaten (.xls und eine .xlsx-Kopie)
+data/processed/  die aufbereiteten Tabellen
+figures/     die Abbildungen
+results/     alle Kennzahlen als csv und json
+bericht/     der Bericht als Word und PDF
+CODE_DOKUMENTATION.md      Code Schritt für Schritt erklärt
+CODE_EINFACH_ERKLAERT.md   dasselbe für Leute ohne Programmiererfahrung
 ```
 
-## Reproduktion
+## Selbst ausführen
 
 ```bash
 pip install -r requirements.txt
-# notebooks/ADS04_Gesamtanalyse.ipynb öffnen und
-# "Kernel → Restart Kernel and Run All Cells" ausführen
 ```
 
-Die gesamte Analyse liegt in **einem einzigen, durchgehend ausführbaren Notebook**. Die neun Teile (01 Datenaufbereitung bis 09 Diagnostik) entsprechen der Reihenfolge der Ausführung und sind über die Überschriften navigierbar; das Inhaltsverzeichnis steht in der ersten Zelle. Das Notebook liegt **vollständig ausgeführt mit allen Ausgaben und Abbildungen** im Repository, die Ausführungszähler laufen lückenlos von 1 bis 47.
+Dann `notebooks/ADS04_Gesamtanalyse.ipynb` öffnen und *Kernel → Restart Kernel and Run All Cells*. Läuft in etwa drei Minuten durch.
 
-Daneben liegt `ADS04_Gesamtanalyse_nur_Code.ipynb`: dieselbe Analyse, dieselben Zellen und dieselben Ergebnisse, aber ohne Fließtext — nur Code, gegliedert durch eine Kommentarzeile je Teil. Wer ausschließlich den Code lesen will, nimmt diese Datei; die Erläuterungen stehen dann in `CODE_DOKUMENTATION.md` und im Bericht.
+Das Notebook geht von oben nach unten durch, in neun Teilen: Datenaufbereitung, explorative Analyse, Modellvergleich, Tuning, Overfitting, Test, Struktur der Zielgröße, Signifikanz, Diagnostik. Die Teile bauen aufeinander auf, umsortieren funktioniert nicht.
 
-Es läuft unverändert lokal in Anaconda/Jupyter aus dem Ordner `notebooks/` sowie in Google Colab (Projektordner in Google Drive; die erste Zelle bindet Drive ein). Fehlt das Paket `xlrd`, wechselt die erste Zelle automatisch auf die mitgelieferte `.xlsx`-Kopie der Rohdaten.
+Es liegt fertig ausgeführt im Repo, mit allen Ausgaben und Grafiken. Man muss also nichts starten, um die Ergebnisse zu sehen. Alle Zufallszahlen sind mit `random_state=42` festgenagelt, validiert wird durchgehend mit `KFold(5, shuffle=True, random_state=42)`.
 
-Reproduzierbarkeit: Alle Zufallsprozesse sind mit `random_state=42` fixiert; das Validierungsschema ist überall `KFold(n_splits=5, shuffle=True, random_state=42)`. Gesamtlaufzeit rund drei Minuten auf einem Rechner mit vier Kernen; die verwendeten Paketversionen stehen in `requirements.txt`.
+Falls das Paket `xlrd` fehlt, wechselt die erste Zelle automatisch auf die `.xlsx`-Kopie.
 
-## Datenherkunft, Aufbereitung und Datenqualität
+## Zu den Daten
 
-**Herkunft:** `global-superstore.xls` (Tableau), bereitgestellt über das Kursmaterial ADS-04; Blätter *Orders* (51.290 × 24), *Returns* (1.173 Zeilen mit 1.172 eindeutigen Bestellnummern) und *People* (13 × 2, nicht verwendet).
+Die Datei `global-superstore.xls` kommt aus dem Kursmaterial (ursprünglich von Tableau). Sie hat drei Blätter: *Orders* mit 51.290 Zeilen, *Returns* mit 1.173 Zeilen zu 1.172 Bestellungen, und *People*, das ich nicht benutze.
 
-**Integration:** Die Retouren werden über `Order ID` an die Bestellpositionen gejoint (3.050 betroffene Positionen). Das Flag `returned` wird bewusst **nicht** als Modellmerkmal verwendet, da eine Retoure zum Vorhersagezeitpunkt unbekannt ist (Vermeidung von Datenleckage).
+Die Retouren habe ich über die `Order ID` an die Bestellungen gehängt, davon sind 3.050 Positionen betroffen. Die Information, ob etwas zurückkam, benutze ich aber **nicht** als Merkmal. Zum Zeitpunkt der Bestellung weiß man das schließlich noch nicht, und sonst hätte ich mir Datenleckage eingebaut.
 
-**Aufbereitung:** `Postal Code` entfernt (fehlt systematisch bei 41.296 Nicht-US-Bestellungen); `Discount` auf drei Nachkommastellen gerundet, da die Rohdaten Gleitkomma-Dubletten enthalten (z. B. 0,15 und 0,15000000000000002); fünf Merkmale abgeleitet (`shipping_days`, `order_month`, `order_year`, `unit_price`, `ship_cost_ratio`), die geprüft, aber im Endmodell nicht verwendet werden; Median-Imputation, Standardisierung und One-Hot-Encoding erfolgen innerhalb der Pipelines und damit je Validierungsfold neu.
+`Postal Code` ist rausgeflogen, die Spalte fehlt bei allen 41.296 Bestellungen außerhalb der USA. `Discount` habe ich auf drei Nachkommastellen gerundet, weil in den Rohdaten sowohl 0,15 als auch 0,15000000000000002 vorkommt und das jede Gruppierung zerlegt. Fünf zusätzliche Merkmale habe ich abgeleitet (Versanddauer, Bestellmonat, Bestelljahr, Stückpreis, Versandkostenanteil), im Endmodell brauche ich sie aber nicht.
 
-**Qualitätsbeurteilung:** Validity (Wertebereiche plausibel), Completeness (nur `Postal Code` lückenhaft), Consistency (keine inhaltlichen Duplikate) und Uniformity (durchgängig USD) sind erfüllt. Eingeschränkt ist die Accuracy der Zielgröße, da `Profit` Retouren nicht verrechnet. Details in Teil 01 des Notebooks (Abschnitt Review) und im Bericht, Kapitel 2.1.
+Imputation, Skalierung und One-Hot-Encoding passieren innerhalb der Pipelines, also bei jeder Kreuzvalidierung neu. Damit sickert nichts aus den Prüfdaten ins Training.
 
-## Verwendete Quellen und übernommene Ansätze
+Zur Datenqualität: Wertebereiche sind plausibel, Lücken gibt es nur bei `Postal Code`, inhaltliche Duplikate keine, Währung durchgehend USD. Der Schwachpunkt ist die Zielgröße selbst, weil Retouren nicht verrechnet sind. Details stehen in Teil 01 des Notebooks und in Kapitel 2.1 des Berichts.
 
-Der methodische Aufbau (Pipeline-/ColumnTransformer-Muster, Split vor jeder Analyse, Cross-Validation, Rastersuche) folgt dem Kursskript ADS-04 sowie Géron (2019), Kapitel 2; das Feature Engineering orientiert sich an Zheng und Casari (2018). Es wurde **kein** Code aus fremden Notebooks (etwa von Kaggle) übernommen. Die eingesetzten Hilfsmittel einschließlich KI-Unterstützung sind im Bericht im Abschnitt „Verwendete Hilfsmittel" vollständig offengelegt.
+## Quellen
+
+Der methodische Aufbau folgt dem Kursskript ADS-04 und Géron (2019), Kapitel 2. Beim Feature Engineering habe ich mich an Zheng und Casari (2018) orientiert. Fremden Notebook-Code, etwa von Kaggle, habe ich nicht übernommen. Welche Hilfsmittel ich benutzt habe, einschließlich KI, steht im Bericht im Abschnitt "Verwendete Hilfsmittel".
