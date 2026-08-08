@@ -16,7 +16,7 @@ Drei Fragen:
 
 **Die Aufbereitung bringt mehr als der Algorithmus.** Sobald das Modell das Produkt aus Umsatz und Rabatt als eigene Spalte bekommt, springt die lineare Regression von R² 0,34 auf 0,71. Mit Polynomgrad 3 sogar auf 0,75.
 
-**Zwischen den Algorithmen ist dagegen kaum ein Unterschied.** Auf den Testdaten: lineares Modell 0,663, Random Forest 0,653. Sieht nach einem Vorsprung aus, ist aber keiner. Der gepaarte t-Test liefert p = 0,54, und je nach Split-Verfahren dreht sich die Reihenfolge um. Nur beim MAE ist der Random Forest wirklich besser (5,28 USD Unterschied).
+**Zwischen den Algorithmen ist dagegen kaum ein Unterschied.** Auf den Testdaten: lineares Modell 0,663, Random Forest 0,654. Sieht nach einem Vorsprung aus, ist aber keiner. Der gepaarte t-Test liefert p = 0,54, und je nach Split-Verfahren dreht sich die Reihenfolge um. Nur beim MAE ist der Random Forest wirklich besser (5,28 USD Unterschied).
 
 **Der Profit muss eigentlich gar nicht geschätzt werden.** Er folgt einer Rechenformel: `Profit = Sales · (Marge − Rabatt) / (1 − Rabatt)`. Die Marge ist pro Produkt fast konstant. Die Formel allein, ohne ein einziges trainiertes Modell, kommt auf R² 0,736; mit produktspezifischen Margen auf 0,974. Damit schlägt sie jedes Modell in diesem Projekt.
 

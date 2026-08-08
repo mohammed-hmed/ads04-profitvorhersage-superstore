@@ -255,7 +255,7 @@ Idee: Man mischt die Werte eines Merkmals zufällig durch und misst, wie stark d
 ## Häufige Fragen
 
 **Warum nicht einfach das genaueste Modell nehmen?**
-Weil der Unterschied (0,663 vs. 0,653) kleiner ist als die Schwankung zwischen den Validierungsdurchläufen (± 0,045) und sich bei anderem Split umdreht. Bei gleicher Güte entscheidet man nach Interpretierbarkeit und Laufzeit.
+Weil der Unterschied (0,663 vs. 0,654) kleiner ist als die Schwankung zwischen den Validierungsdurchläufen (± 0,045) und sich bei anderem Split umdreht. Bei gleicher Güte entscheidet man nach Interpretierbarkeit und Laufzeit.
 
 **Warum wurden die Ausreißer nicht entfernt?**
 Weil sie keine Fehler sind, sondern die betriebswirtschaftlich wichtigsten Fälle: Großaufträge und teure Fehlgeschäfte. Sie zu löschen würde die Kennzahlen schöner machen und das Modell unbrauchbarer.
