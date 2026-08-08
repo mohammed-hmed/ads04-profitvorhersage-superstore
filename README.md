@@ -34,7 +34,9 @@ notebooks/       ADS04_Gesamtanalyse.ipynb           die ganze Analyse, mit Erkl
 data/raw/        Rohdaten (.xls und eine .xlsx-Kopie)
 data/processed/  die aufbereiteten Tabellen
 bericht/         der Bericht als Word und PDF
-CODE_DOKUMENTATION.md   der Code Schritt für Schritt erklärt
+CODE_DOKUMENTATION.md      der Code Schritt für Schritt erklärt
+CODE_ZELLE_FUER_ZELLE.md   dasselbe ausführlicher, jede einzelne Zelle,
+                           auch ohne Programmiererfahrung lesbar
 ```
 
 Abbildungen und Kennzahlen liegen nicht extra als Dateien im Repo. Sie stehen als Ausgaben direkt im Notebook, und beim Ausführen legt es sie zusätzlich unter `figures/` und `results/` ab.
