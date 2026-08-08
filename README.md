@@ -29,16 +29,15 @@ Drei Fragen:
 ## Was wo liegt
 
 ```
-notebooks/   ADS04_Gesamtanalyse.ipynb           die ganze Analyse, mit Erklärungen
-             ADS04_Gesamtanalyse_nur_Code.ipynb  dasselbe, nur der Code
-data/raw/    Rohdaten (.xls und eine .xlsx-Kopie)
+notebooks/       ADS04_Gesamtanalyse.ipynb           die ganze Analyse, mit Erklärungen
+                 ADS04_Gesamtanalyse_nur_Code.ipynb  dasselbe, nur der Code
+data/raw/        Rohdaten (.xls und eine .xlsx-Kopie)
 data/processed/  die aufbereiteten Tabellen
-figures/     die Abbildungen
-results/     alle Kennzahlen als csv und json
-bericht/     der Bericht als Word und PDF
-CODE_DOKUMENTATION.md      Code Schritt für Schritt erklärt
-CODE_EINFACH_ERKLAERT.md   dasselbe für Leute ohne Programmiererfahrung
+bericht/         der Bericht als Word und PDF
+CODE_DOKUMENTATION.md   der Code Schritt für Schritt erklärt
 ```
+
+Abbildungen und Kennzahlen liegen nicht extra als Dateien im Repo. Sie stehen als Ausgaben direkt im Notebook, und beim Ausführen legt es sie zusätzlich unter `figures/` und `results/` ab.
 
 ## Selbst ausführen
 
