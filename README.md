@@ -33,7 +33,7 @@ notebooks/       ADS04_Gesamtanalyse.ipynb           die ganze Analyse, mit Erkl
                  ADS04_Gesamtanalyse_nur_Code.ipynb  dasselbe, nur der Code
 data/raw/        Rohdaten (.xls und eine .xlsx-Kopie)
 data/processed/  die aufbereiteten Tabellen
-bericht/         der Bericht als Word und PDF
+bericht/         der Bericht als PDF
 CODE_DOKUMENTATION.md      der Code Schritt für Schritt erklärt
 CODE_ZELLE_FUER_ZELLE.md   dasselbe ausführlicher, jede einzelne Zelle,
                            auch ohne Programmiererfahrung lesbar
